@@ -1,14 +1,9 @@
-import axios from 'axios';
-import setupInterceptors from './interceptors'; 
+import enqueueRequest from './apiQueue';
 
-const apiCaller = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com'
-});
-
-const queueBaseURLs = [
-    'https://jsonplaceholder.typicode.com'
-];
-
-setupInterceptors(apiCaller);
+const apiCaller = {
+    get: (url, config) => enqueueRequest({ ...config, method: 'get', url }),
+    post: (url, data, config) => enqueueRequest({ ...config, method: 'post', url, data }),
+    // Similarly, define other methods (put, delete, etc.)
+};
 
 export default apiCaller;
