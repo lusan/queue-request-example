@@ -3,8 +3,6 @@ import apiCaller from "./api/normalFlow/apiCaller";
 
 function App() {
   useEffect(() => {
-    // Make multiple API calls
-    // Now use it like:
     apiCaller
       .get("https://hub.dummyapis.com/delay?seconds=2")
       .then((response) => {
