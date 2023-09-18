@@ -2,6 +2,8 @@
 
 This solution provides a mechanism to queue API requests for specific base URLs, ensuring that they are sent out sequentially. It's especially useful when you need to prevent concurrency for particular endpoints.
 
+### Ignore `api/intereptorTechnique`
+
 ## Table of Contents
 
 - [Setup](#setup)
