@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+import { getBaseURLFromFullURL } from '../../utils/getBaseURLFromFullURL';
+
 const queueBaseURLs = [
-    'https://jsonplaceholder.typicode.com'
+    'https://jsonplaceholder.typicode.com',
+    'https://hub.dummyapis.com'
 ];
 
 let apiQueue = [];
@@ -27,7 +30,8 @@ const processNextRequest = async () => {
 };
 
 const enqueueRequest = (config) => {
-    if (queueBaseURLs.includes(config.baseURL)) {
+    const currentBaseURL = config.baseURL || getBaseURLFromFullURL(config.url);
+    if (queueBaseURLs.includes(currentBaseURL)) {
         return new Promise((resolve, reject) => {
             apiQueue.push({ config, resolve, reject });
             processNextRequest();
