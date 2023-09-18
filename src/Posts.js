@@ -1,40 +1,27 @@
-// src/components/Posts.js
-import React, { useState, useEffect } from "react";
-import { fetchPosts } from "./api/posts";
+import React, { useEffect } from 'react';
+import apiCaller from './api/apiCaller';
 
-function Posts() {
-  const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
+function App() {
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchPosts();
-        setPosts(data);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    // Make multiple API calls
+    apiCaller.get('/todos/1').then(response => {
+      console.log('Response 1:', response.data);
+    });
 
-    fetchData();
+    apiCaller.get('/todos/2').then(response => {
+      console.log('Response 2:', response.data);
+    });
+
+    apiCaller.get('/todos/3').then(response => {
+      console.log('Response 3:', response.data);
+    });
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
-
   return (
-    <div>
-      <h1>Posts</h1>
-      <ul>
-        {posts.map((post) => (
-          <li key={post.id}>{post.title}</li>
-        ))}
-      </ul>
+    <div className="App">
+      <h1>Sequential API Calls with Axios</h1>
     </div>
   );
 }
 
-export default Posts;
+export default App;
